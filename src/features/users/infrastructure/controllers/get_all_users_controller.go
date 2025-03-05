@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"citasAPI/src/features/users/application"
-	"citasAPI/src/features/users/domain"
+	"event-driven/src/features/users/application"
+	"event-driven/src/features/users/domain"
 	"github.com/gin-gonic/gin"
 )
 

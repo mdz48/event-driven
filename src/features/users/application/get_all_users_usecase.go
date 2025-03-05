@@ -1,6 +1,6 @@
 package application
 
-import "citasAPI/src/features/users/domain"
+import "event-driven/src/features/users/domain"
 
 type GetAllUsersUseCase struct {
 	db domain.IUser

@@ -1,7 +1,7 @@
 package infrastructure
 
 import (
-	"citasAPI/src/features/users/infrastructure/controllers"
+	"event-driven/src/features/users/infrastructure/controllers"
 	"github.com/gin-gonic/gin"
 )
 

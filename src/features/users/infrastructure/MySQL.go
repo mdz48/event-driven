@@ -1,8 +1,8 @@
 package infrastructure
 
 import (
-	"citasAPI/src/features/users/domain"
 	"database/sql"
+	"event-driven/src/features/users/domain"
 )
 
 type MySQL struct {
