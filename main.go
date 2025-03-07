@@ -1,3 +1,4 @@
+// main.go
 package main
 
 import (
@@ -6,10 +7,18 @@ import (
 
 func main() {
 	dependencies := NewDependencies()
-	config := cors.DefaultConfig()
-	config.AllowAllOrigins = true
-	config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Authorization"}
-	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
-	dependencies.engine.Use(cors.New(config))
-	_ = dependencies.Run()
+
+
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowAllOrigins = true
+	corsConfig.AllowCredentials = true
+	corsConfig.AllowMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
+	corsConfig.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Authorization"}
+	corsConfig.ExposeHeaders = []string{"Content-Length"}
+	corsConfig.AllowCredentials = true
+
+	dependencies.engine.Use(cors.New(corsConfig))
+	dependencies.Run()
+	
 }
+

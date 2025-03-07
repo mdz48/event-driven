@@ -3,7 +3,6 @@ package main
 import (
 	"event-driven/src/core"
 	ordersUseCase "event-driven/src/features/orders/application"
-	ordersDomain "event-driven/src/features/orders/domain" // Corregido: odersDomain → ordersDomain
 	ordersInfrastructure "event-driven/src/features/orders/infrastructure"
 	ordersControllers "event-driven/src/features/orders/infrastructure/controllers"
 	"event-driven/src/features/orders/infrastructure/producer"
@@ -57,29 +56,6 @@ func (d *Dependencies) Run() error {
 	ordersGetAllController := ordersControllers.NewGetAllController(ordersGetAllUseCase)
 	ordersCreateUseCase := ordersUseCase.NewCreateOrderUseCase(ordersDataBase)
 	ordersCreateController := ordersControllers.NewCreateOrderController(ordersCreateUseCase, rabbitMQ)
-
-	// Si RabbitMQ está disponible, configurar manejadores de eventos
-	if rabbitMQ != nil {
-		// Configurar consumidor para órdenes creadas
-		err = rabbitMQ.ConsumeSpecificEvents("created", func(order ordersDomain.Order) error { // Corregido: odersDomain → ordersDomain
-			log.Printf("Procesando nueva orden creada: ID=%d, Producto=%s", order.ID, order.Product)
-			// Lógica específica para órdenes nuevas
-			return nil
-		})
-		if err != nil {
-			log.Printf("Error configurando consumidor de órdenes creadas: %v", err)
-		}
-
-		// Configurar consumidor para cambios de estado
-		err = rabbitMQ.ConsumeSpecificEvents("status_changed", func(order ordersDomain.Order) error { // Corregido: odersDomain → ordersDomain
-			log.Printf("Procesando cambio de estado: ID=%d, Nuevo estado=%s", order.ID, order.Status)
-			// Lógica específica para cambios de estado
-			return nil
-		})
-		if err != nil {
-			log.Printf("Error configurando consumidor de cambios de estado: %v", err)
-		}
-	}
 
 	ordersRouter := ordersInfrastructure.NewOrderRouter(d.engine, ordersGetAllController, ordersCreateController)
 	ordersRouter.SetUpRoutes()
