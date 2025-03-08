@@ -18,11 +18,6 @@ type RabbitMQ struct {
 }
 
 func NewRabbitMQ(url string) (*RabbitMQ, error) {
-	// Si la URL está vacía, usa un valor predeterminado
-	if url == "" {
-		url = "amqp://max:123@54.172.185.28:5672/"
-	}
-
 	conn, err := amqp.Dial(url)
 	if err != nil {
 		return nil, fmt.Errorf("error conectando a RabbitMQ: %s", err)
