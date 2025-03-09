@@ -14,6 +14,7 @@ type Database struct {
 }
 
 func NewDatabase() *Database {
+	//
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error al cargar el archivo .env")
